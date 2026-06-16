@@ -1,14 +1,10 @@
 //rout /vehicles
 import { Router } from "express";
-import {getVehicles} from "./vehicleController.js"
+import {getVehicles , createVehicle, getVehicleSummary} from "./vehicleController.js"
 
 export const vehicleRouter = Router();
 
+vehicleRouter.post("/", createVehicle);
 vehicleRouter.get("/", getVehicles);
 
-vehicleRouter.post("/", async (req, res) => {
-  res.status(201).json({
-    message: "Create vehicle",
-    body: req.body,
-  });
-});
+vehicleRouter.get("/:vehicleId/summary", getVehicleSummary);
