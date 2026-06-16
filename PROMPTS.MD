@@ -10,3 +10,9 @@ generate my schema.ts file with the indexes.
 
 generate seed.ts file for database setup
 
+generate my gitignore file , make sure not to ignore the /drizzle folder
+
+Backend API:
+
+
+
