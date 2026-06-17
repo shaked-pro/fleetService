@@ -14,19 +14,19 @@ import { db } from "../db/client.js";
 import { trips, vehicles } from "../db/schema.js";
 
 type GetTripsParams = {
-  vehicleId?: string;
-  from?: string;
-  to?: string;
+  vehicleId?: string| undefined;
+  from?: string| undefined;
+  to?: string| undefined;
   page?: number;
   pageSize?: number;
 };
 
-export async function createTrip(
+export async function serviceCreateTrip(
   vehicleId: string,
   startTime: Date,
   endTime: Date,
-  distance: string,
-  energyUsed: string
+  distance: number,
+  energyUsed: number
 ) {
   const vehicle = await db
     .select()
@@ -42,8 +42,8 @@ export async function createTrip(
     vehicleId,
     startTime,
     endTime,
-    distance,
-    energyUsed,
+    distance: distance.toString(),
+    energyUsed: energyUsed.toString(),
   };
 
   await db.insert(trips).values(trip);
@@ -51,7 +51,7 @@ export async function createTrip(
   return trip;
 }
 
-export async function getTrips({
+export async function serviceGetTrips({
   vehicleId,
   from,
   to,
@@ -76,7 +76,7 @@ export async function getTrips({
     );
   }
 
-  const whereClause =
+  const whereClause =  //building this condition dynamically according to the user selection of filtering
     conditions.length > 0
       ? and(...conditions)
       : undefined;
@@ -99,6 +99,6 @@ export async function getTrips({
     items,
     page,
     pageSize,
-    total: totalResult[0].count,
+    total: totalResult[0]?.count??0,
   };
 }

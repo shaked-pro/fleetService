@@ -68,14 +68,3 @@ export async function serviceGetVehicleSummary(
     averageTripDurationMinutes,
   };
 }
-
-export async function getVehicleById( //helper function for modules depending on vehicle e.g trip service
-  vehicleId: string
-) {
-  const result = await db
-    .select()
-    .from(vehicles)
-    .where(eq(vehicles.id, vehicleId));
-
-  return result[0] ?? null;
-}

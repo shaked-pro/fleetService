@@ -22,8 +22,6 @@ export async function createVehicle(req:Request<{}, {}, CreateVehicleRequest>, r
   const name = req.body.name;
   const type = req.body.type;
 
-  console.log("name: "+name+"type: "+type)
-
   const vehicle = await serviceCreateVehicle(name,type);
 
   return res.status(201).json(vehicle);
