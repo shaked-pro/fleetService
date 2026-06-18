@@ -50,3 +50,10 @@ Unit tests:
 use Vitest and generate unit tests that will check the core logic.
 changes: added and extracted some validation checks in the services so the'll be testable and also its good practice :)
 
+Setup:
+
+generate a docker-compose file with volume matched to postgres 18
+changes: removed "version 3.9" at the top because newer version don't need it and defult to the actuall version installed
+
+generate a Readme.md file with step by stem instruction of how to run the project and a summary of features
+
