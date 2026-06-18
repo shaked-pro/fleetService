@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 
 import { getTrips, getVehicles } from "../api/api";
+import type {Vehicle,Trip} from "../types/types"
 
 export function TripsTable() {
 
-    const [vehicles, setVehicles] = useState<any[]>([]); //for load vehicles
+    const [vehicles, setVehicles] = useState<Vehicle[]>([]); //for load vehicles
     const [vehicleId, setVehicleId] = useState(""); //for load trips
     const [from, setFrom] = useState("");
     const [to, setTo] = useState("");
 
     const [page, setPage] = useState(1);
     const pageSize = 10;
-    const [trips, setTrips] = useState<any[]>([]);
+    const [trips, setTrips] = useState<Trip[]>([]);
 
     const [loading, setLoading] =
     useState(false);
@@ -55,14 +56,6 @@ export function TripsTable() {
         } finally {
             setLoading(false);
         }
-        }
-
-        if (loading) {
-        return <p>Loading trips...</p>;
-        }
-
-        if (error) {
-        return <p>{error}</p>;
         }
 
         return (
@@ -120,8 +113,14 @@ export function TripsTable() {
 <button className="form-row" onClick={loadTrips}>
   Filter
 </button>
+  {loading && (
+    <p>Loading trips...</p>
+  )}
 
- {trips.length === 0 ? (
+  {error && (
+    <p>{error}</p>
+  )}
+  {trips.length === 0 ? (
       <p>No trips found.</p>
     ) : (
       <table className="trip-table">

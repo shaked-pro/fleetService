@@ -11,7 +11,6 @@ backend/dist/
 
 # Environment variables
 .env
-.env.*
 backend/.env
 frontend/.env
 

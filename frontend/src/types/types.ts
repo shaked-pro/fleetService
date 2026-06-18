@@ -15,7 +15,7 @@ export interface Trip {
   energyUsed: string;
 }
 
-export interface VehicleSummary {
+export interface VehicleSummaryFields {
   vehicleId: string;
   tripCount: number;
   totalDistance: number;

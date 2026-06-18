@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type {Vehicle,VehicleSummaryFields} from "../types/types"
 
 import {
   getVehicles,
@@ -7,14 +8,13 @@ import {
 
 export function VehicleSummary() {
   const [vehicles, setVehicles] =
-    useState<any[]>([]);
+    useState<Vehicle[]>([]);
 
   const [vehicleId, setVehicleId] =
     useState("");
 
   const [summary, setSummary] =
-    useState<any>(null);
-
+    useState<VehicleSummaryFields | null>(null);
   const [loading, setLoading] =
     useState(false);
 
