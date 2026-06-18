@@ -57,3 +57,5 @@ changes: removed "version 3.9" at the top because newer version don't need it an
 
 generate a Readme.md file with step by stem instruction of how to run the project and a summary of features
 
+add a tradeoff section that highlight the minimal frontend desicion, the extracted functiones, indexing of the db and the scope of both testing and docker [then I specified each selection] 
+

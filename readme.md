@@ -204,3 +204,29 @@ GET http://localhost:3000/health
 Frontend:
 
 Open http://localhost:5173
+
+## Tradeoffs and Design Decisions
+
+### Minimal Frontend
+
+The assignment requested a minimal UI, so I focused on implementing the required user flows rather than investing heavily in styling or complex state management libraries. React state (`useState` and `useEffect`) was sufficient for the application's scope.
+
+### Summary Calculation
+
+Vehicle summaries are calculated on demand from trip data instead of being precomputed and stored. This keeps the implementation simple and ensures the summary is always consistent with the underlying trips. For larger datasets, a materialized view or pre-aggregated table would likely be preferable.
+
+### Database Indexes
+
+Indexes were added on `vehicle_id` and `(vehicle_id, start_time)` because the primary query patterns involve filtering trips by vehicle and date range. Additional indexes were intentionally avoided until a demonstrated need exists.
+
+### Validation
+
+Only validation required for data integrity was implemented (vehicle existence, positive distance/energy values, and valid trip timestamps). More extensive validation could be added depending on business requirements.
+
+### Testing Scope
+
+Tests focus on the core business logic called out in the assignment: pagination, validation, and summary aggregation. Database and framework behavior were not unit tested, as those responsibilities are already covered by the underlying libraries.
+
+### Docker Scope
+
+The database is containerized via Docker Compose as required. The backend and frontend are run locally through Node.js to keep the setup simple and reduce build complexity for the take-home project.
