@@ -30,3 +30,15 @@ Frontend:
 Please suggest a project structure that will include a drontend layer too, I think about mocing the src and drizzle to a backend folder along wit hpackage.json and crete a react project into a new frontend folder.
 
 Please update my gitignore 
+
+please Create a single page Frontend structure suggestion that will support those requirements : [pasted your requirements] [decided on a single page for simplicity might change later]
+
+please generate an example vehicle form that will call the createVehicle api
+changes: added a form-row class to css and added it to the div so there will be a gap between the inputs and the labels 
+
+please generate a trip form. add to the div a class named form-row
+
+Please generate a trip table form which will hold the trips data in a table
+
+can you Please make it so that the timestamp fields will present a more readable date format like dd/mm/yyyy , hh:mm:ss?
+
