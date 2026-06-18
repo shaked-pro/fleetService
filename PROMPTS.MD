@@ -39,6 +39,14 @@ changes: added a form-row class to css and added it to the div so there will be 
 please generate a trip form. add to the div a class named form-row
 
 Please generate a trip table form which will hold the trips data in a table
+changes: added a bit of css so itll look nice, nothing major
 
 can you Please make it so that the timestamp fields will present a more readable date format like dd/mm/yyyy , hh:mm:ss?
+
+please generate a vehicle summary form
+
+Unit tests:
+
+use Vitest and generate unit tests that will check the core logic.
+changes: added and extracted some validation checks in the services so the'll be testable and also its good practice :)
 

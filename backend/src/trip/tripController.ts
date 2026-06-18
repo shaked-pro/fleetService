@@ -56,8 +56,11 @@ export async function createTrip(req: Request<{}, {}, CreateTripRequest>,res: Re
 
     return res.status(201).json(trip);
   } catch (error) {
-    return res.status(500).json({
-      error: "Failed to create trip",
+    return res.status(400).json({
+      error:
+        error instanceof Error
+          ? error.message
+          : "Invalid request",
     });
   }
 }

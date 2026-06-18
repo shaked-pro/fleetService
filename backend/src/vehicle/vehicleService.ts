@@ -25,6 +25,43 @@ export async function serviceGetVehicles() {
   return db.select().from(vehicles);
 }
 
+export function calculateVehicleSummary(
+  vehicleTrips: {
+    distance: string;
+    startTime: Date;
+    endTime: Date;
+  }[]
+) {
+  const tripCount = vehicleTrips.length;
+
+  const totalDistance = vehicleTrips.reduce(
+    (sum, trip) => sum + Number(trip.distance),
+    0
+  );
+
+  const totalDurationMinutes =
+    vehicleTrips.reduce((sum, trip) => {
+      const duration =
+        (trip.endTime.getTime() -
+          trip.startTime.getTime()) /
+        (1000 * 60);
+
+      return sum + duration;
+    }, 0);
+
+  const averageTripDurationMinutes =
+    tripCount === 0
+      ? 0
+      : totalDurationMinutes /
+        tripCount;
+
+  return {
+    tripCount,
+    totalDistance,
+    averageTripDurationMinutes,
+  };
+}
+
 export async function serviceGetVehicleSummary(
   vehicleId: string
 ) {
@@ -42,29 +79,11 @@ export async function serviceGetVehicleSummary(
     .from(trips)
     .where(eq(trips.vehicleId, vehicleId));
 
-  const tripCount = vehicleTrips.length;
-
-  const totalDistance = vehicleTrips.reduce(
-    (sum, trip) => sum + Number(trip.distance),
-    0
-  );
-
-  const averageTripDurationMinutes =
-    tripCount === 0
-      ? 0
-      : vehicleTrips.reduce((sum, trip) => {
-          const durationMinutes =
-            (trip.endTime.getTime() -
-              trip.startTime.getTime()) /
-            60000;
-
-          return sum + durationMinutes;
-        }, 0) / tripCount;
+  const summary =
+    calculateVehicleSummary(vehicleTrips);
 
   return {
     vehicleId,
-    tripCount,
-    totalDistance,
-    averageTripDurationMinutes,
+    ...summary,
   };
 }

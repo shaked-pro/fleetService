@@ -21,6 +21,13 @@ type GetTripsParams = {
   pageSize?: number;
 };
 
+export function calculateOffset(
+  page: number,
+  pageSize: number
+) {
+  return (page - 1) * pageSize;
+}
+
 export async function serviceCreateTrip(
   vehicleId: string,
   startTime: Date,
@@ -28,6 +35,14 @@ export async function serviceCreateTrip(
   distance: number,
   energyUsed: number
 ) {
+
+  validateTrip(
+    startTime,
+    endTime,
+    distance,
+    energyUsed
+  );
+
   const vehicle = await db
     .select()
     .from(vehicles)
@@ -49,6 +64,31 @@ export async function serviceCreateTrip(
   await db.insert(trips).values(trip);
 
   return trip;
+}
+
+export function validateTrip(
+  startTime: Date,
+  endTime: Date,
+  distance: number,
+  energyUsed: number
+) {
+  if (endTime <= startTime) {
+    throw new Error(
+      "End time must be after start time"
+    );
+  }
+
+  if (distance <= 0) {
+    throw new Error(
+      "Distance must be positive"
+    );
+  }
+
+  if (energyUsed <= 0) {
+    throw new Error(
+      "Energy used must be positive"
+    );
+  }
 }
 
 export async function serviceGetTrips({
@@ -81,7 +121,7 @@ export async function serviceGetTrips({
       ? and(...conditions)
       : undefined;
 
-  const offset = (page - 1) * pageSize;
+  const offset = calculateOffset(page,pageSize);
 
   const items = await db
     .select()
