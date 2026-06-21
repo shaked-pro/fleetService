@@ -82,6 +82,8 @@ Install dependencies:
 npm install
 ```
 
+Create a `.env` file in the backend directory based on `.env.example`.
+
 Run database migrations:
 
 ```bash
@@ -94,7 +96,6 @@ Seed the database:
 npm run seed
 ```
 
-Create a `.env` file in the backend directory based on `.env.example`.
 
 Start the backend server:
 
